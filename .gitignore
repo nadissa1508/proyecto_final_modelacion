@@ -1,0 +1,7 @@
+# Environment
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+
+# Extra files
+tmp/
