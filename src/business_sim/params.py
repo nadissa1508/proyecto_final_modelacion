@@ -79,3 +79,36 @@ class BusinessParams:
     def breakeven_customers(self):
         """Clientes por mes que cubren costos fijos y cuota de la deuda."""
         return (self.fixed_costs + self.loan_payment) / self.margin
+
+
+@dataclass(frozen=True)
+class CustomerParams:
+    """Parámetros de la población de clientes potenciales y su red de contactos.
+
+    Los valores por defecto son supuestos para el barrio de una cafetería tipo.
+
+    Attributes:
+        population: Clientes potenciales (nodos de la red).
+        neighbors: Contactos promedio por persona en la red Watts-Strogatz.
+        rewiring: Probabilidad de recableado de la red Watts-Strogatz.
+        initial_customers: Clientes activos en la apertura.
+        innovation: Coeficiente p de Bass (atracción por publicidad, por mes).
+        imitation: Coeficiente q de Bass (boca a boca, por mes).
+        mean_visits: Visitas promedio por mes de un cliente activo.
+        visits_shape: Forma de la distribución gamma de visitas (menor es más dispersa).
+        mean_churn: Probabilidad promedio de abandono mensual.
+        churn_concentration: Concentración de la distribución beta del abandono.
+        unserved_sensitivity: Aumento del abandono por cada unidad de fracción no atendida.
+    """
+
+    population: int = 1_200
+    neighbors: int = 8
+    rewiring: float = 0.1
+    initial_customers: int = 290
+    innovation: float = 0.005
+    imitation: float = 0.25
+    mean_visits: float = 2.0
+    visits_shape: float = 2.0
+    mean_churn: float = 0.08
+    churn_concentration: float = 20.0
+    unserved_sensitivity: float = 0.5
