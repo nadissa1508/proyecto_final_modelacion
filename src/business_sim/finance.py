@@ -4,12 +4,21 @@ import numpy as np
 import pandas as pd
 
 
+def seasonal_factor(params):
+    """Devuelve el multiplicador estacional de cada mes del horizonte.
+
+    Usa un coseno de amplitud `params.seasonality` con pico en diciembre.
+    """
+    month = (params.start_month - 1 + np.arange(params.horizon)) % 12 + 1
+    return 1 + params.seasonality * np.cos(2 * np.pi * (month - 12) / 12)
+
+
 def demand_curve(params, factor=1.0):
     """Devuelve la demanda esperada de clientes para cada mes del horizonte.
 
     La demanda crece de `demand_start` hacia `demand_mature` de forma exponencial,
-    con la mitad del crecimiento en `ramp_months`, y se multiplica por una
-    estacionalidad coseno con pico en diciembre.
+    con la mitad del crecimiento en `ramp_months`, y se multiplica por
+    `seasonal_factor`.
 
     Args:
         params: `BusinessParams` del negocio.
@@ -21,9 +30,7 @@ def demand_curve(params, factor=1.0):
     t = np.arange(params.horizon)
     tau = params.ramp_months / np.log(2)
     base = params.demand_mature - (params.demand_mature - params.demand_start) * np.exp(-t / tau)
-    month = (params.start_month - 1 + t) % 12 + 1
-    season = 1 + params.seasonality * np.cos(2 * np.pi * (month - 12) / 12)
-    return factor * base * season
+    return factor * base * seasonal_factor(params)
 
 
 def simulate_finance(params, demand):
