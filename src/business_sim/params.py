@@ -112,3 +112,24 @@ class CustomerParams:
     mean_churn: float = 0.08
     churn_concentration: float = 20.0
     unserved_sensitivity: float = 0.5
+
+
+@dataclass(frozen=True)
+class QueueParams:
+    """Parámetros de la atención en mostrador de un día típico. Tiempos en minutos.
+
+    Attributes:
+        servers: Personas que atienden en mostrador.
+        hourly_profile: Peso relativo de llegadas de cada hora de apertura (7:00 a 19:00).
+        days_per_month: Días de apertura por mes.
+        service_mean: Tiempo promedio de atención (exponencial).
+        patience_mean: Tiempo promedio que un cliente tolera esperar (exponencial).
+        max_queue: Clientes en cola a partir de los cuales quien llega se va sin entrar.
+    """
+
+    servers: int = 2
+    hourly_profile: tuple = (1.6, 2.0, 1.3, 0.8, 0.9, 1.5, 1.4, 0.7, 0.6, 0.7, 0.8, 0.7)
+    days_per_month: int = 30
+    service_mean: float = 5.0
+    patience_mean: float = 5.0
+    max_queue: int = 6
