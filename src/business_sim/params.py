@@ -133,3 +133,25 @@ class QueueParams:
     service_mean: float = 5.0
     patience_mean: float = 5.0
     max_queue: int = 6
+
+
+@dataclass(frozen=True)
+class CreditParams:
+    """Parámetros de la venta a crédito y la morosidad.
+
+    Con `credit_share = 0` el negocio vende solo al contado y el módulo no tiene efecto.
+
+    Attributes:
+        credit_share: Fracción de clientes a quienes se vende a crédito.
+        payment_delay: Meses entre la venta a crédito y su cobro.
+        mean_default: Probabilidad mensual promedio de que un cliente a crédito caiga en
+            mora. Las compras a crédito de ese mes no se cobran.
+        default_concentration: Concentración de la distribución beta de la mora.
+        default_churn: Probabilidad de que un cliente que cae en mora deje el negocio.
+    """
+
+    credit_share: float = 0.0
+    payment_delay: int = 1
+    mean_default: float = 0.05
+    default_concentration: float = 20.0
+    default_churn: float = 0.5
