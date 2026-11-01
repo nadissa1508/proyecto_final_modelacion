@@ -4,5 +4,10 @@ scipy>=1.18
 matplotlib>=3.11
 simpy>=4.1
 networkx>=3.7
+fastapi>=0.162
+uvicorn>=0.54
+httpx>=0.28
+pytest>=9.2
 jupyter>=1.1
 ipykernel>=7.3
+-e .
