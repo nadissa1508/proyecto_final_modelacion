@@ -1,5 +1,6 @@
 """Monte Carlo sobre el modelo integrado para estimar el riesgo de quedarse sin caja."""
 
+from concurrent.futures import ProcessPoolExecutor
 from dataclasses import replace
 
 import numpy as np
@@ -37,11 +38,40 @@ def sample_scenario(p, cp, rng, crp=None):
     return p_s, cp_s, level, crp
 
 
-def run_montecarlo(n, p, cp, qp, table, seed=0, level=1.0, noise=0.05, crp=None):
+_SHARED = {}
+
+
+def _init_worker(shared):
+    """Guarda en el proceso los argumentos comunes de `run_montecarlo`."""
+    _SHARED.update(shared)
+
+
+def _scenario(i, p, cp, qp, table, seed, level, noise, crp):
+    """Corre el escenario i de `run_montecarlo` y devuelve (fila del resumen, caja mensual)."""
+    rng = np.random.default_rng([seed, i])
+    p_s, cp_s, lev, crp_s = sample_scenario(p, cp, rng, crp)
+    df = simulate_business(p_s, cp_s, qp, table, rng, level=level * lev, noise=noise, crp=crp_s)
+    m = months_survived(df)
+    row = {
+        "months": m, "survived": m == p.horizon, "min_cash": df["cash"].min(),
+        "final_cash": df["cash"].iloc[-1], "active_end": df["active"].iloc[-1],
+        "mean_loss": df["loss"].mean(), "churn": cp_s.mean_churn,
+        "bad_debt": df["bad_debt"].sum(),
+    }
+    return row, df["cash"].to_numpy()
+
+
+def _shared_scenario(i):
+    """Corre el escenario i con los argumentos guardados por `_init_worker`."""
+    return _scenario(i, **_SHARED)
+
+
+def run_montecarlo(n, p, cp, qp, table, seed=0, level=1.0, noise=0.05, crp=None, workers=1):
     """Corre `n` escenarios del modelo integrado.
 
     El escenario i usa la semilla (seed, i), por lo que dos llamadas con la misma
-    semilla comparten los sorteos (números aleatorios comunes).
+    semilla comparten los sorteos (números aleatorios comunes) y el resultado no depende
+    de `workers`.
 
     Args:
         n: Número de escenarios.
@@ -51,23 +81,19 @@ def run_montecarlo(n, p, cp, qp, table, seed=0, level=1.0, noise=0.05, crp=None)
         level: Multiplicador adicional del nivel de visitas.
         noise: Desviación del choque lognormal mensual de las visitas.
         crp: `CreditParams` opcional.
+        workers: Procesos en paralelo. 1 corre en el proceso actual.
 
     Returns:
         Tupla (summary, cash). `summary` es un `DataFrame` con una fila por escenario y
         las columnas months, survived, min_cash, final_cash, active_end, mean_loss,
-        churn y bad_debt (incobrables acumulados). `cash` es un arreglo (n, horizon) con la caja al cierre de cada mes.
+        churn y bad_debt (incobrables acumulados). `cash` es un arreglo (n, horizon) con
+        la caja al cierre de cada mes.
     """
-    rows, cash = [], []
-    for i in range(n):
-        rng = np.random.default_rng([seed, i])
-        p_s, cp_s, lev, crp_s = sample_scenario(p, cp, rng, crp)
-        df = simulate_business(p_s, cp_s, qp, table, rng, level=level * lev, noise=noise, crp=crp_s)
-        m = months_survived(df)
-        rows.append({
-            "months": m, "survived": m == p.horizon, "min_cash": df["cash"].min(),
-            "final_cash": df["cash"].iloc[-1], "active_end": df["active"].iloc[-1],
-            "mean_loss": df["loss"].mean(), "churn": cp_s.mean_churn,
-            "bad_debt": df["bad_debt"].sum(),
-        })
-        cash.append(df["cash"].to_numpy())
-    return pd.DataFrame(rows), np.array(cash)
+    shared = {"p": p, "cp": cp, "qp": qp, "table": table, "seed": seed, "level": level, "noise": noise, "crp": crp}
+    if workers > 1:
+        with ProcessPoolExecutor(max_workers=workers, initializer=_init_worker, initargs=(shared,)) as ex:
+            results = list(ex.map(_shared_scenario, range(n), chunksize=max(1, n // (4 * workers))))
+    else:
+        results = [_scenario(i, **shared) for i in range(n)]
+    rows, cash = zip(*results) if results else ((), ())
+    return pd.DataFrame(list(rows)), np.array(cash)
