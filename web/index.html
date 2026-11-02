@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PYMESIM · ¿Cuánto aguanta tu negocio?</title>
+  <meta name="description" content="Simula tu negocio y descubre cuántos meses resiste tu caja, qué clientes necesitas conservar y qué decisión te conviene.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/css/landing.css">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <header class="nav">
+    <div class="container">
+      <a class="wordmark" href="/" aria-label="PYMESIM, inicio">
+        <img class="wordmark-mark" src="/img/favicon.svg" alt="" width="22" height="22">PYMESIM
+      </a>
+      <nav class="nav-links" aria-label="Secciones">
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#preguntas">Preguntas</a>
+        <a href="#ejemplo">Ejemplo</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="/simulador/">Simular mi negocio</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow hero-eyebrow">Simulador para pequeños negocios</p>
+          <h1 class="display-xxl">¿Cuánto aguanta tu negocio?</h1>
+          <p class="subtitle">Ingresa tus números y descubre cuántos meses resiste tu caja, qué clientes necesitas conservar y qué decisión te conviene. En lugar de un solo número, ves cientos de futuros posibles.</p>
+          <div class="hero-actions">
+            <a class="btn btn-dark" href="/simulador/">Simular mi negocio</a>
+            <a class="btn btn-light" href="#ejemplo">Ver un ejemplo</a>
+          </div>
+        </div>
+        <figure class="hero-art" aria-label="Rango de caja de mil futuros posibles para una cafetería">
+          <svg viewBox="0 0 460 290" role="img">
+            <title>Caja de una cafetería en mil futuros posibles</title>
+            <line x1="30" y1="20" x2="30" y2="262" class="ink-thin"/>
+            <line x1="30" y1="262" x2="440" y2="262" class="ink-thin"/>
+            <line x1="30" y1="236.8" x2="440" y2="236.8" class="ink-dash"/>
+            <polygon class="fan" points="30.0,200.0 47.4,201.2 64.8,201.9 82.2,200.7 99.6,199.7 117.0,197.1 134.3,194.0 151.7,187.8 169.1,181.3 186.5,172.4 203.9,162.4 221.3,152.1 238.7,141.1 256.1,128.5 273.5,119.3 290.9,109.5 308.3,101.5 325.7,91.4 343.0,84.4 360.4,73.1 377.8,60.9 395.2,47.1 412.6,34.4 430.0,20.0 430.0,251.8 412.6,255.2 395.2,256.1 377.8,258.6 360.4,260.0 343.0,259.5 325.7,257.4 308.3,256.9 290.9,255.1 273.5,253.9 256.1,253.0 238.7,252.4 221.3,253.3 203.9,252.1 186.5,252.2 169.1,250.3 151.7,247.0 134.3,243.0 117.0,237.9 99.6,232.2 82.2,225.6 64.8,219.3 47.4,212.8 30.0,206.7"/>
+            <path class="ink-line" d="M30.0,203.1 L47.4,207.5 L64.8,211.9 L82.2,215.3 L99.6,218.7 L117.0,220.8 L134.3,222.4 L151.7,222.7 L169.1,221.0 L186.5,218.8 L203.9,214.8 L221.3,210.6 L238.7,204.5 L256.1,200.9 L273.5,196.6 L290.9,194.0 L308.3,191.1 L325.7,188.1 L343.0,184.4 L360.4,180.7 L377.8,174.8 L395.2,169.6 L412.6,161.8 L430.0,154.0"/>
+            <circle cx="430" cy="20" r="4" class="ink-dot"/>
+            <circle cx="430" cy="154" r="5" class="ink-dot"/>
+            <circle cx="430" cy="251.8" r="4" class="ink-dot"/>
+            <text x="424" y="16" class="ink-label" text-anchor="end">mejor</text>
+            <text x="424" y="146" class="ink-label" text-anchor="end">probable</text>
+            <text x="424" y="276" class="ink-label" text-anchor="end">peor</text>
+            <text x="24" y="240.5" class="ink-label" text-anchor="end">Q0</text>
+            <text x="30" y="280" class="ink-label">mes 1</text>
+            <text x="360" y="280" class="ink-label" text-anchor="end">mes 24</text>
+          </svg>
+          <figcaption class="hero-caption mono">Caja de la cafetería de ejemplo en 500 futuros posibles</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">El problema</p>
+          <h2 class="display-xl">Una hoja de cálculo te da un número. PYMESIM te da el rango.</h2>
+          <p class="body-lg">Las ventas cambian, los costos fijos llegan cada mes y en las horas pico algunos clientes se van sin comprar. Por eso un solo número suele engañar.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="tile stat">
+            <p class="stat-value">24 meses</p>
+            <p class="body-sm">aguanta la cafetería de ejemplo si todo sale exactamente como se espera.</p>
+          </article>
+          <article class="tile stat">
+            <p class="stat-value">1 de cada 4</p>
+            <p class="body-sm">futuros posibles termina sin caja cuando se consideran los cambios en ventas, costos y clientes.</p>
+          </article>
+          <article class="tile stat">
+            <p class="stat-value">4 meses</p>
+            <p class="body-sm">aguanta en el escenario probable si sus ventas son 30% menores a lo esperado.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section band-bone" id="preguntas">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Qué puedes preguntar</p>
+          <h2 class="display-xl">Cinco preguntas que todo dueño se hace</h2>
+        </div>
+        <div class="grid grid-3 questions">
+          <article class="card question">
+            <span class="badge">Caja</span>
+            <h3 class="heading-md">¿Cuántos meses aguanto si vendo menos?</h3>
+            <p class="body-sm">Elige cuánto podrían bajar tus ventas y mira el peor, el probable y el mejor escenario.</p>
+            <p class="question-result mono">30% menos · 4 meses probables</p>
+          </article>
+          <article class="card question">
+            <span class="badge">Clientes</span>
+            <h3 class="heading-md">¿Cuántos clientes debo conservar?</h3>
+            <p class="body-sm">Descubre qué parte de tus clientes necesitas que vuelva cada mes para no quedarte sin caja.</p>
+            <p class="question-result mono">98% para un riesgo menor a 10%</p>
+          </article>
+          <article class="card question">
+            <span class="badge">Decisiones</span>
+            <h3 class="heading-md">¿Qué me conviene más?</h3>
+            <p class="body-sm">Compara publicidad, un programa de lealtad, contratar a alguien o recortar costos fijos.</p>
+            <p class="question-result mono">Recortar fijos · 72% a 86%</p>
+          </article>
+          <article class="card question">
+            <span class="badge">Sensibilidad</span>
+            <h3 class="heading-md">¿Qué datos pesan más?</h3>
+            <p class="body-sm">Mira qué número de tu negocio cambia más el resultado, para cuidarlo primero.</p>
+            <p class="question-result mono">El precio promedio de venta</p>
+          </article>
+          <article class="card question">
+            <span class="badge">Crédito</span>
+            <h3 class="heading-md">¿Me conviene vender a crédito?</h3>
+            <p class="body-sm">Calcula cuánto te afecta cobrar después y cuántos clientes podrían no pagarte.</p>
+            <p class="question-result mono">Cobro a 3 meses · 72% a 45%</p>
+          </article>
+          <article class="card question question-cta">
+            <h3 class="heading-md">Tus números, tus respuestas</h3>
+            <p class="body-sm">Sin registro y sin hojas de cálculo. Parte de un ejemplo y cámbialo por tus datos.</p>
+            <a class="btn btn-dark" href="/simulador/">Abrir el simulador</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section band-dark" id="como-funciona">
+      <div class="container grid grid-2 how">
+        <div>
+          <p class="eyebrow">Cómo funciona</p>
+          <h2 class="display-xl">Tu negocio, simulado mes a mes</h2>
+          <ol class="steps">
+            <li>
+              <h3 class="heading-sm">Tus números</h3>
+              <p class="body-sm">Caja, ventas, costos, deuda y horario. Solo lo que ya conoces de tu negocio.</p>
+            </li>
+            <li>
+              <h3 class="heading-sm">Tus clientes</h3>
+              <p class="body-sm">Cada cliente se simula por separado. Compra, recomienda, se va o deja de pagar.</p>
+            </li>
+            <li>
+              <h3 class="heading-sm">Tu mostrador</h3>
+              <p class="body-sm">Si se forma fila, algunos clientes se van sin comprar. Eso también llega a tu caja.</p>
+            </li>
+            <li>
+              <h3 class="heading-sm">Cientos de futuros posibles</h3>
+              <p class="body-sm">El año se repite cientos de veces con ventas y costos distintos para darte un rango, no una adivinanza.</p>
+            </li>
+          </ol>
+        </div>
+        <div class="code-block" data-tabs>
+          <div class="code-tabs" role="tablist">
+            <button class="code-tab" role="tab" aria-selected="true" aria-controls="tab-datos" id="t-datos">tus_datos</button>
+            <button class="code-tab" role="tab" aria-selected="false" aria-controls="tab-respuesta" id="t-respuesta">respuesta</button>
+          </div>
+<pre class="code-body" role="tabpanel" id="tab-datos" aria-labelledby="t-datos"><span class="k">negocio        </span><span class="v">Cafetería de ejemplo</span>
+<span class="k">caja inicial   </span><span class="v">Q60,000</span>
+<span class="k">venta promedio </span><span class="v">Q45 por visita</span>
+<span class="k">costos fijos   </span><span class="v">Q27,000 al mes</span>
+<span class="k">deuda          </span><span class="v">Q100,000 a 36 meses</span>
+<span class="k">visitas        </span><span class="v">700 al abrir, 1,600 al crecer</span>
+<span class="k">atienden       </span><span class="v">2 personas, de 7:00 a 19:00</span></pre>
+<pre class="code-body" role="tabpanel" id="tab-respuesta" aria-labelledby="t-respuesta" hidden><span class="k">para cubrir costos      </span><span class="v">1,021 visitas al mes</span>
+<span class="k">riesgo sin caja (24 m)  </span><span class="hl">25.6%</span>
+<span class="k">con 30% menos ventas    </span><span class="v">3 · 4 · 24 meses</span>
+<span class="k">                        </span><span class="k">peor · probable · mejor</span>
+<span class="k">te conviene             </span><span class="hl">recortar costos fijos</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ejemplo">
+      <div class="container grid grid-2 example">
+        <div>
+          <p class="eyebrow">Ejemplo</p>
+          <h2 class="display-lg">Una cafetería con Q60,000 en caja</h2>
+          <p class="body-lg">Abre con 700 visitas al mes y necesita 1,021 para cubrir sus costos. ¿Qué le conviene hacer mientras crece?</p>
+          <p class="body-lg">Recortar costos fijos sube su probabilidad de llegar a dos años de 72% a 86%. La publicidad y la lealtad dan más ganancia a largo plazo, pero gastan caja justo cuando el negocio es más frágil.</p>
+        </div>
+        <div class="card card-lg">
+          <h3 class="heading-sm">Probabilidad de llegar a 24 meses</h3>
+          <p class="body-sm example-note">Con las ventas esperadas, en los mismos 300 futuros para cada opción</p>
+          <div class="bars">
+            <div class="bar-row"><span>Sin cambios</span><div class="bar-track"><div class="bar-fill" style="width:72.3%"></div></div><span class="bar-value">72%</span></div>
+            <div class="bar-row"><span>Publicidad</span><div class="bar-track"><div class="bar-fill" style="width:63%"></div></div><span class="bar-value">63%</span></div>
+            <div class="bar-row"><span>Lealtad</span><div class="bar-track"><div class="bar-fill" style="width:68%"></div></div><span class="bar-value">68%</span></div>
+            <div class="bar-row"><span>Contratar</span><div class="bar-track"><div class="bar-fill" style="width:38%"></div></div><span class="bar-value">38%</span></div>
+            <div class="bar-row best"><span>Recortar fijos</span><div class="bar-track"><div class="bar-fill" style="width:85.7%"></div></div><span class="bar-value">86%</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section band-bone closing">
+      <div class="container closing-inner">
+        <h2 class="display-xl">Pruébalo con tu negocio.</h2>
+        <p class="body-lg">Toma menos de cinco minutos. Parte de la cafetería o de una tienda de barrio y cambia los números por los tuyos.</p>
+        <a class="btn btn-primary" href="/simulador/">Simular mi negocio</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="wordmark" href="/"><img class="wordmark-mark" src="/img/favicon.svg" alt="" width="22" height="22">PYMESIM</a>
+          <p class="footer-note">PYMESIM apoya tus decisiones, no las sustituye. Los resultados son rangos de escenarios, no predicciones.</p>
+        </div>
+        <div>
+          <h3>Producto</h3>
+          <ul>
+            <li><a href="/simulador/">Simulador</a></li>
+            <li><a href="#como-funciona">Cómo funciona</a></li>
+            <li><a href="#preguntas">Preguntas</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Proyecto</h3>
+          <ul>
+            <li><a href="https://github.com/Tunchxz/CC2017-Proyecto-Final">Repositorio</a></li>
+            <li><a href="/docs">Documentación de la API</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Proyecto final de CC2017 Modelación y Simulación, Universidad del Valle de Guatemala, 2026.</span>
+        <span>Datos de ejemplo ilustrativos.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/landing.js" defer></script>
+</body>
+</html>
