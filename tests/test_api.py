@@ -38,3 +38,12 @@ def test_job_runs_until_done():
         time.sleep(0.5)
     assert state["status"] == "done"
     assert 0 <= state["result"]["probability_survive"] <= 1
+
+
+def test_website_is_served_without_hiding_api():
+    page = client.get("/")
+    assert page.status_code == 200
+    assert "PYMESIM" in page.text
+    assert client.get("/css/tokens.css").status_code == 200
+    assert client.get("/docs").status_code == 200
+    assert client.get("/health").json() == {"status": "ok"}

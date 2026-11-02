@@ -1,7 +1,7 @@
 """API REST del simulador.
 
 Se ejecuta con `uvicorn business_sim.api:app`. La documentación interactiva queda en
-`/docs`. Las preguntas que corren Monte Carlo se atienden como trabajos en segundo
+`/docs` y, si existe la carpeta `web/` del repositorio, el sitio queda en `/`. Las preguntas que corren Monte Carlo se atienden como trabajos en segundo
 plano: `POST /jobs/{question}` devuelve un identificador y `GET /jobs/{job_id}` el
 estado y, al terminar, el resultado.
 """
@@ -13,9 +13,11 @@ import time
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import MISSING, fields
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, create_model
 
 from . import service
@@ -34,6 +36,9 @@ QUESTIONS = {
 """Preguntas disponibles como trabajos y la función del servicio que las responde."""
 
 MAX_SCENARIOS = 5_000
+
+WEB_DIR = Path(__file__).resolve().parents[2] / "web"
+"""Carpeta del sitio estático (landing y simulador)."""
 
 
 def _attribute_docs(cls):
@@ -218,3 +223,7 @@ def get_job(job_id: str):
         if job is None:
             raise HTTPException(status_code=404, detail="Trabajo no encontrado.")
         return dict(job)
+
+
+if WEB_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=WEB_DIR, html=True), name="web")
