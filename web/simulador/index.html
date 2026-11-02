@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulador · PYMESIM</title>
+  <meta name="description" content="Simula tu negocio con tus propios números y obtén un rango de escenarios.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/css/simulator.css">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <header class="nav">
+    <div class="container">
+      <a class="wordmark" href="/" aria-label="PYMESIM, inicio">
+        <img class="wordmark-mark" src="/img/favicon.svg" alt="" width="22" height="22">PYMESIM
+      </a>
+      <nav class="nav-links" aria-label="Secciones">
+        <a href="/">Inicio</a>
+        <a href="/#como-funciona">Cómo funciona</a>
+        <a href="/docs">API</a>
+      </nav>
+      <div class="nav-actions">
+        <span class="badge badge-dot" id="api-status">Conectando</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="sim">
+    <section class="sim-head">
+      <div class="container">
+        <p class="eyebrow">Simulador</p>
+        <h1 class="display-lg">Simula tu negocio</h1>
+        <p class="body-lg sim-lead">Parte de un ejemplo y cambia los números por los tuyos. El resumen se actualiza al instante y cada pregunta se responde con cientos de futuros posibles.</p>
+        <div class="sim-toolbar">
+          <div class="toolbar-group">
+            <span class="toolbar-label">Ejemplo</span>
+            <div class="pills" id="preset-pills" role="group" aria-label="Ejemplo de partida">
+              <button class="pill" type="button" data-preset="cafe" aria-pressed="true">Cafetería</button>
+              <button class="pill" type="button" data-preset="tienda" aria-pressed="false">Tienda de barrio</button>
+            </div>
+          </div>
+          <div class="toolbar-group">
+            <span class="toolbar-label">Precisión</span>
+            <div class="pills" id="precision-pills" role="group" aria-label="Precisión de la simulación">
+              <button class="pill" type="button" data-precision="fast" aria-pressed="true">Rápida</button>
+              <button class="pill" type="button" data-precision="precise" aria-pressed="false">Precisa</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container sim-layout">
+      <aside class="sim-form" aria-label="Datos del negocio">
+        <form id="business-form" novalidate></form>
+      </aside>
+
+      <div class="sim-output">
+        <section class="card card-lg" id="summary" aria-live="polite">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Resumen inmediato</p>
+              <h2 class="heading-md" id="summary-title">Tu negocio</h2>
+            </div>
+            <span class="badge" id="summary-status">Sin calcular</span>
+          </div>
+          <div class="kpis" id="summary-kpis"></div>
+          <p class="body-sm summary-note" id="summary-note"></p>
+          <div class="chart-box"><canvas id="chart-summary" aria-label="Visitas esperadas por mes"></canvas></div>
+        </section>
+
+        <section class="card card-lg questions-panel" id="questions">
+          <p class="eyebrow">Preguntas</p>
+          <div class="pills question-tabs" role="tablist" id="question-tabs"></div>
+          <div id="question-panels"></div>
+        </section>
+
+        <p class="caption disclaimer">PYMESIM apoya tus decisiones, no las sustituye. Los resultados son rangos de escenarios construidos con supuestos, no predicciones.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer footer-compact">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>Proyecto final de CC2017 Modelación y Simulación, Universidad del Valle de Guatemala, 2026.</span>
+        <a href="https://github.com/Tunchxz/CC2017-Proyecto-Final">Repositorio</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/vendor/chart.umd.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/simulator.js"></script>
+</body>
+</html>
