@@ -1,0 +1,62 @@
+/* Variables del sistema visual de PYMESIM (base Replicate con acento rojo). */
+:root {
+  /* Acento */
+  --primary: #d93a31;
+  --primary-deep: #b52a22;
+  --on-primary: #ffffff;
+  --hero-warm: #ff6961;
+  --hero-glow: #ff8a78;
+  --hero-pink: #f7b3aa;
+
+  /* Texto */
+  --ink: #202020;
+  --body: #3a3a3a;
+  --charcoal: #575757;
+  --mute: #646464;
+  --ash: #8d8d8d;
+  --stone: #bbbbbb;
+  --on-dark: #fcfcfc;
+  --on-dark-mute: rgba(252, 252, 252, 0.72);
+
+  /* Superficies */
+  --canvas: #f9f7f3;
+  --surface-bone: #f3f0e8;
+  --surface-card: #ffffff;
+  --surface-dark: #202020;
+  --surface-deep: #000000;
+  --hairline: rgba(32, 32, 32, 0.12);
+  --hairline-strong: #202020;
+  --divider-dark: rgba(255, 255, 255, 0.2);
+
+  /* Semánticos */
+  --success: #2b9a66;
+  --warning: #b7791f;
+  --ring-focus: rgba(59, 130, 246, 0.5);
+
+  /* Tipografía */
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  /* Radios */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-full: 9999px;
+
+  /* Espacios */
+  --s-xxs: 2px;
+  --s-xs: 4px;
+  --s-sm: 8px;
+  --s-md: 12px;
+  --s-lg: 16px;
+  --s-xl: 24px;
+  --s-xxl: 32px;
+  --s-xxxl: 48px;
+  --s-section: 96px;
+  --s-band: 160px;
+
+  --container: 1280px;
+  --nav-h: 60px;
+}
