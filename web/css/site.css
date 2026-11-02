@@ -17,6 +17,7 @@ body {
 }
 
 img, svg { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
 a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 :focus-visible { outline: 3px solid var(--ring-focus); outline-offset: 2px; }
