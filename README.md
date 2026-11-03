@@ -1,6 +1,6 @@
-# ¿Cuánto aguanta mi negocio?
+# PYMESIM. ¿Cuánto aguanta mi negocio?
 
-Simulador de supervivencia y flujo de caja para negocios pequeños, preparado como núcleo de un SaaS de demostración. A partir de los datos que conoce el dueño estima cuántos meses aguanta la caja, cuántos clientes se necesita retener, qué estrategia conviene más (publicidad, lealtad, contratar o recortar costos fijos) y si conviene vender a crédito. El resultado es un rango de escenarios (peor, probable y mejor), no una predicción exacta. Una cafetería tipo en Guatemala sirve como caso de uso.
+Simulador de supervivencia y flujo de caja para negocios pequeños, presentado como un SaaS de demostración con landing y simulador web. A partir de los datos que conoce el dueño estima cuántos meses aguanta la caja, cuántos clientes se necesita retener, qué estrategia conviene más (publicidad, lealtad, contratar o recortar costos fijos) y si conviene vender a crédito. El resultado es un rango de escenarios (peor, probable y mejor), no una predicción exacta. Una cafetería tipo en Guatemala sirve como caso de uso.
 
 El modelo combina cuatro paradigmas de modelación y simulación.
 
@@ -11,7 +11,7 @@ El modelo combina cuatro paradigmas de modelación y simulación.
 | Eventos discretos | `queue_des.py` | Cola de atención con SimPy y clientes perdidos por espera |
 | Monte Carlo | `montecarlo.py` | Incertidumbre en mercado, clientes, costos, ventas y mora |
 
-`model.py` acopla las capas mes a mes. `inputs.py` y `calibration.py` convierten los datos del dueño en parámetros del modelo, `service.py` responde cada pregunta con resultados JSON y `api.py` los expone como API REST. Los valores de la cafetería son supuestos creíbles, no datos de un negocio real, y la herramienta apoya decisiones sin sustituirlas.
+`model.py` acopla las capas mes a mes. `inputs.py` y `calibration.py` convierten los datos del dueño en parámetros del modelo, `service.py` responde cada pregunta con resultados JSON, `api.py` los expone como API REST y `web/` contiene el sitio que los consume. Los valores de la cafetería son supuestos creíbles, no datos de un negocio real, y la herramienta apoya decisiones sin sustituirlas.
 
 ## Estructura
 
@@ -25,6 +25,7 @@ notebooks/          Tutoriales en orden
   05_estrategias.ipynb
   06_morosidad.ipynb
   07_servicio_saas.ipynb
+web/                Sitio (landing y simulador) en HTML, CSS y JavaScript
 tests/              Pruebas con pytest
 ```
 
@@ -44,11 +45,17 @@ Notebooks (abrir en orden con el kernel de `.venv`):
 jupyter notebook notebooks/
 ```
 
-API (documentación interactiva en http://localhost:8000/docs):
+Sitio y API:
 
 ```bash
 uvicorn business_sim.api:app
 ```
+
+| Dirección | Contenido |
+| --- | --- |
+| http://localhost:8000/ | Landing de PYMESIM |
+| http://localhost:8000/simulador/ | Simulador |
+| http://localhost:8000/docs | Documentación interactiva de la API |
 
 Pruebas:
 
@@ -56,4 +63,4 @@ Pruebas:
 pytest
 ```
 
-Los notebooks 04 a 07 corren miles de escenarios y tardan entre 3 y 6 minutos cada uno. En la API las preguntas largas se piden con `POST /jobs/{question}` y su resultado se consulta con `GET /jobs/{job_id}`.
+Los notebooks 04 a 07 corren miles de escenarios y tardan entre 3 y 6 minutos cada uno. En el simulador, cada pregunta tarda entre 15 s y 1 min con precisión rápida y algunos minutos con precisión alta. En la API las preguntas largas se piden con `POST /jobs/{question}` y su resultado se consulta con `GET /jobs/{job_id}`.
