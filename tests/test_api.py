@@ -47,3 +47,11 @@ def test_website_is_served_without_hiding_api():
     assert client.get("/css/tokens.css").status_code == 200
     assert client.get("/docs").status_code == 200
     assert client.get("/health").json() == {"status": "ok"}
+
+
+def test_simulator_page_and_assets():
+    page = client.get("/simulador/")
+    assert page.status_code == 200
+    assert "Simula tu negocio" in page.text
+    for path in ("/js/api.js", "/js/simulator.js", "/css/simulator.css", "/vendor/chart.umd.js"):
+        assert client.get(path).status_code == 200
